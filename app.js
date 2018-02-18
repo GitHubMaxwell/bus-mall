@@ -127,6 +127,10 @@ function removeListener(){
 randChecker();
 
 function genChart() {
+  //JOSH told me this code for the local storage (giving him credit) and explained to me how it works
+  var strItems = JSON.stringify(allImages);
+  localStorage.setItem('items', strItems);
+
   var chartNames = [];
   var chartVotes = [];
   var labelColors = [];
