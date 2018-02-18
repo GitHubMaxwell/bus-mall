@@ -1,4 +1,6 @@
 
+// a lot of help on the chart from Katerina and Autumn, and Chris
+
 'use strict';
 
 var allImages = [];
@@ -10,11 +12,12 @@ var imgElOne = document.getElementById('imgOne');
 var imgElTwo = document.getElementById('imgTwo');
 var imgElThree = document.getElementById('imgThree');
 
-function Image(name, filepath) {
+function Image(name, filepath, labelColor) {
   this.name = name;
   this.filepath = filepath;
   this.votes = 0;
   this.views = 0;
+  this.labelColor = labelColor;
   allImages.push(this);
 }
 
@@ -81,6 +84,7 @@ function handleClick() {
   if (numOfClicks === 25) {
     removeListener();
     showTally();
+    genChart();
   } else {
     numOfClicks += 1;
     allImages[justViewed[0]].votes += 1;
@@ -94,6 +98,7 @@ function handleClick2() {
   if (numOfClicks === 25) {
     removeListener();
     showTally();
+    genChart();
   } else {
     numOfClicks += 1;
     allImages[justViewed[1]].votes += 1;
@@ -106,6 +111,7 @@ function handleClick3() {
   if (numOfClicks === 25) {
     removeListener();
     showTally();
+    genChart();
   } else {
     numOfClicks += 1;
     allImages[justViewed[2]].votes += 1;
@@ -119,3 +125,37 @@ function removeListener(){
   imgElThree.removeEventListener('click',handleClick3);
 }
 randChecker();
+
+function genChart() {
+  var chartNames = [];
+  var chartVotes = [];
+  var labelColors = [];
+  for(var j = 0; j < allImages.length; j++) {
+    chartNames[j] = allImages[j].name;
+    chartVotes[j] = allImages[j].votes;
+    labelColors[j] = allImages[j].labelColor;
+  }
+  var ctx = document.getElementById('chart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: chartNames,
+      datasets: [{
+        label: '# of Votes',
+        data: chartVotes,
+        backgroundColor: ["rgb(3,200,1)","rgb(256,2,1)","rgb(100,2,1)","rgb(3,2,200)","rgb(200,1,143)","rgb(21,111,13)","rgb(4,27,166)","rgb(131,222,1)","rgb(35,22,111)","rgb(39,24,12)","rgb(23,2,134)","rgb(3,222,1)","rgb(113,112,1)","rgb(234,24,1)","rgb(113,2,1)","rgb(3,2,144)","rgb(3,222,1)",]
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks:  {
+            beginAtZero: true,
+            stepSize: 1,
+            max: 8,
+          }
+        }]
+      }
+    }
+  });
+}

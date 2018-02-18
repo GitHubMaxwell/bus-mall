@@ -6,6 +6,7 @@
 }
 .container {
     width: 70%;
+    height: 200px;
     margin:0 auto;
     border: 5px solid gray;
     border-radius:5px;
@@ -15,8 +16,8 @@ h1 {
 }
 .threeUp {
     display: inline-block;
-    width:200px;
-    height:200px;
+    width:31%;
+    max-height:100%;
     border-radius:5px;
     height:auto;
     margin: 0 auto;
